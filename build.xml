@@ -1,0 +1,117 @@
+<!--
+Copyright 2007 Flaptor (flaptor.com) 
+
+Licensed under the Apache License, Version 2.0 (the "License"); 
+you may not use this file except in compliance with the License. 
+You may obtain a copy of the License at 
+
+    http://www.apache.org/licenses/LICENSE-2.0 
+
+Unless required by applicable law or agreed to in writing, software 
+distributed under the License is distributed on an "AS IS" BASIS, 
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+See the License for the specific language governing permissions and 
+limitations under the License.
+-->
+
+<project name="hist4j" default="jar" basedir=".">
+	<property name="project" value="hist4j"/>
+	<property name="version" value="trunk"/>
+
+    <property name="src.dir" value="${basedir}/src"/>
+    <property name="test.dir" value="${basedir}/test"/>
+    <property name="build.dir" value="${basedir}/build"/>
+    <property name="lib.dir" value="${basedir}/lib"/>
+    <property name="javadoc.dir" value="${basedir}/docs/javadoc"/>
+	<property name="output.dir"  location="${basedir}/output"/>
+
+    <path id="classpath.jars.lib">
+        <pathelement location="${build.dir}"/>
+        <fileset dir="${basedir}/lib">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
+
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+        <delete dir="${output.dir}"/>
+        <delete dir="${javadoc.dir}"/>
+        <delete>
+            <fileset dir="${basedir}" includes="TEST-*.txt"/>
+        </delete>
+    </target>
+	
+	
+    <target name="prepare">
+        <mkdir dir="${build.dir}"/>
+        <delete dir="${output.dir}"/>
+        <mkdir dir="${output.dir}"/>
+    </target>
+
+    <target name="compile" depends="prepare" description="compiles the source code">
+        <javac destdir="${build.dir}" debug="true" debuglevel="lines,vars,source" target="5">
+          <compilerarg value="-Xlint:deprecation"/>
+          <compilerarg value="-Xlint:unchecked"/>
+          <compilerarg value="-target"/>
+          <compilerarg value="5"/>
+		  <classpath>
+			<path refid="classpath.jars.lib"/>
+		  </classpath>
+          <src path="${src.dir}/com/flaptor"/>
+        </javac>
+    </target>
+
+    <target name="compile-test" depends="prepare" description="compiles the test files">
+        <javac destdir="${build.dir}" debug="true" debuglevel="lines,vars,source" target="5">
+          <compilerarg value="-Xlint:deprecation"/>
+          <compilerarg value="-Xlint:unchecked"/>
+          <compilerarg value="-target"/>
+          <compilerarg value="5"/>
+		  <classpath>
+			<path refid="classpath.jars.lib"/>
+		  </classpath>
+          <src path="${test.dir}/com/flaptor"/>
+        </javac>
+    </target>
+
+    <target name="jar" depends="compile" description="builds the hist4j jar file" >
+		<jar jarfile="${output.dir}/${project}-${version}.jar" >
+			<manifest>
+				<attribute name="Built-By" value="${user.name}"/>
+				<attribute name="Version" value="${version}"/>
+			</manifest>
+			<fileset dir="${build.dir}" excludes="**/*Test.class">
+				<include name="com/flaptor/**/*.class"/>
+			</fileset>
+		</jar>
+    </target>
+
+    <target name="doc" description="creates the hist4j javadoc" >
+        <delete dir="${javadoc.dir}" />
+        <mkdir dir="${javadoc.dir}" />
+        <javadoc sourcepath="${src.dir}" destdir="${javadoc.dir}" Private="false" linksource="yes">
+            <doctitle><![CDATA[<h1>Hist4j Documentation</h1>]]></doctitle>
+        </javadoc>
+    </target>
+
+    <target name="JUNIT">
+        <available property="junit.present" classname="junit.framework.TestCase" />
+    </target>
+
+    <target name="test" description="runs the JUnit tests" depends="JUNIT,compile,compile-test">
+		<junit printsummary="on" showoutput="true" haltonfailure="true" fork="on">
+		    <classpath>
+		      <path refid="classpath.jars.lib"/>
+              <pathelement path="${basedir}"/>
+		    </classpath>
+            <formatter type="plain"/>
+            <batchtest fork="yes">
+                <fileset dir="${test.dir}">
+                    <include name="**/*Test.java"/>
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
+
+</project>
+
