@@ -18,6 +18,7 @@ limitations under the License.
 package com.flaptor.hist4j;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * A HistogramNode is the building block for the histogram data structure and 
@@ -45,6 +46,9 @@ public abstract class HistogramNode implements Serializable {
     /** Abstract method for applying a convertion function to the values stored in the histogram */
     public abstract void apply (AdaptiveHistogram.ValueConversion valueConversion);
 
+    /** Abstract method for getting a table representing the histogram data */
+    public abstract void toTable (ArrayList<Cell> table);
+    
     /** Abstract method for showing the data structure */
     public abstract void show (int level);
 

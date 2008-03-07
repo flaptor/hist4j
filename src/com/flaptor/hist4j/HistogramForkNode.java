@@ -17,6 +17,8 @@ limitations under the License.
 
 package com.flaptor.hist4j;
 
+import java.util.ArrayList;
+
 /**
  * The HistogramForkNode splits the data range in two at a given value, pointing to two subtrees, 
  * one for values smaller than the split value, and one for values larger than the split value. 
@@ -143,6 +145,13 @@ public class HistogramForkNode extends HistogramNode {
         margin(level);
         System.out.println("Fork at: " + splitValue);
         right.show(level+1);
+    }
+    /**
+     * Build the table representing the histogram data adding the data from each subtree.
+     */
+    public void toTable (ArrayList<Cell> table) {
+    	left.toTable(table);
+    	right.toTable(table);
     }
 
 }

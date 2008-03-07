@@ -17,6 +17,7 @@ limitations under the License.
 package com.flaptor.hist4j;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * This class implements a histogram that adapts to an unknown data distribution.
@@ -153,6 +154,18 @@ public class AdaptiveHistogram implements Serializable {
         if (null != root) {
             root.show(0);
         }
+    }
+    
+    /**
+     * Return a table representing the data in this histogram.
+     * Each element is a table cell containing the range limit values and the count for that range.
+     */
+    public ArrayList<Cell> toTable () {
+    	ArrayList<Cell> table = new ArrayList<Cell>();
+    	if (null != root) {
+    		root.toTable(table);
+    	}
+    	return table;
     }
 
 }
