@@ -11,6 +11,7 @@ import java.util.ArrayList;
  * @author jorge
  */
 public class Cell implements Serializable {
+	private static final long serialVersionUID = -1L;
     public long count;
     public float minValue, maxValue;
 }

@@ -28,6 +28,8 @@ import java.util.ArrayList;
  */
 public abstract class HistogramNode implements Serializable {
 
+	private static final long serialVersionUID = -1L;
+
     /** Abstract method for clearing the node */
     public abstract void reset ();
 

@@ -34,7 +34,8 @@ import java.util.ArrayList;
 
 public class AdaptiveHistogram implements Serializable {
 
-    private long totalCount;     // total number of data points
+	private static final long serialVersionUID = -1L;
+	private long totalCount;     // total number of data points
     private HistogramNode root;  // root of the tree
 
     /**

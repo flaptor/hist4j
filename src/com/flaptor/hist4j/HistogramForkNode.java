@@ -28,6 +28,8 @@ import java.util.ArrayList;
 
 public class HistogramForkNode extends HistogramNode {
 
+	private static final long serialVersionUID = -1L;
+
     // Attributes of a fork node.
     private float splitValue;
     private HistogramNode left = null;

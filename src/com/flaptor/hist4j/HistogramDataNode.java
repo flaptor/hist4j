@@ -17,6 +17,7 @@ limitations under the License.
 
 package com.flaptor.hist4j;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -29,10 +30,10 @@ import java.util.ArrayList;
 
 public class HistogramDataNode extends HistogramNode {
 
-    // Attributes of a data node.
+	private static final long serialVersionUID = -1L;
+
+   // Attributes of a data node.
 	private Cell cell = new Cell();
-//	private long count;
-//	private float minValue, maxValue;
 
     /**
      * Creates an empty data node.
