@@ -113,5 +113,15 @@ limitations under the License.
         </junit>
     </target>
 
+    <target name="obf" depends="jar">
+        <taskdef name="yguard" classname="com.yworks.yguard.YGuardTask" classpath="lib/yguard.jar"/>
+        <yguard>
+            <inoutpair in="${output.dir}/${project}-${version}.jar" out="${output.dir}/${project}-o.jar"/>
+            <shrink logfile="shrink.log"/>
+            <rename logfile="rename.log"/>
+        </yguard>
+    </target>
+
+
 </project>
 
