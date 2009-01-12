@@ -17,7 +17,6 @@ limitations under the License.
 
 package com.flaptor.hist4j;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -78,9 +77,10 @@ public class HistogramDataNode extends HistogramNode {
         // "self" is what is returned to the caller. If this node needs to be replaced by a fork node, 
         // this variable will hold the new fork node and it will be returned to the caller.
         // Otherwise, the node returned will be this, in which case nothing changes.
-        HistogramNode self = this; 
+        HistogramNode self = this;
         if (value >= cell.minValue && value <= cell.maxValue) {  // the value falls within this nodes' range
-            if (cell.count < root.getCountPerNodeLimit()) {  // there is enough room in this node for the new value
+            if (cell.count < root.getCountPerNodeLimit()  // there is enough room in this node for the new value
+                    || cell.minValue == cell.maxValue) {  // or the node defines a zero-width range so it can't be split
             	cell.count++;
             } else {  // not enough room, distribute the value count among the new nodes, assuming uniform distribution
                 float splitValue = (cell.minValue + cell.maxValue) / 2;
@@ -188,7 +188,7 @@ public class HistogramDataNode extends HistogramNode {
      */
     public void show (int level) {
         margin(level);
-        System.out.println("Data: " + cell.count + " ("+cell.minValue+"-"+cell.maxValue+")");
+        System.out.println("Data: " + cell.count + " ("+cell.minValue+","+cell.maxValue+")");
     }
     
     /**
