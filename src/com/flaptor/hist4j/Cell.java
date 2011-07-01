@@ -4,7 +4,6 @@
 package com.flaptor.hist4j;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 /**
  * Contains the data of a histogram node.

@@ -101,7 +101,7 @@ public class AdaptiveHistogram implements Serializable {
         if (null != root) {
             value = root.getValueForAccumCount(new long[]{0, targetAccumCount});
         }
-        return (null != value) ? value.floatValue() : null;
+        return (null != value) ? value.floatValue() : 0;
     }
 
     /**
