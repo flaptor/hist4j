@@ -24,17 +24,26 @@ public class Hist4jExample {
     public static void main(String[] args) {
         Random rnd = new Random(new Date().getTime());
         AdaptiveHistogram h = new AdaptiveHistogram();
-        System.out.println("loading gaussian data into the histogram.");
+
+        System.out.println();
+        System.out.println("Loading 10000 Gauss(0,1) data points into the histogram.");
         
         for (int i=0; i < 10000; i ++) {
             h.addValue((float)rnd.nextGaussian());
         }
 
-        System.out.println("Done. Showing buckets from -1 to 1:");
-        System.out.println("5% percentile: " + h.getValueForPercentile(5));
-        System.out.println("25% percentile: " + h.getValueForPercentile(25));
-        System.out.println("50% percentile: " + h.getValueForPercentile(50));
-        System.out.println("75% percentile: " + h.getValueForPercentile(75));
-        System.out.println("95% percentile: " + h.getValueForPercentile(95));
+        System.out.println();
+        System.out.println("Main percentiles:");
+        System.out.println("   5%: " + h.getValueForPercentile(5));
+        System.out.println("  25%: " + h.getValueForPercentile(25));
+        System.out.println("  50%: " + h.getValueForPercentile(50));
+        System.out.println("  75%: " + h.getValueForPercentile(75));
+        System.out.println("  95%: " + h.getValueForPercentile(95));
+        System.out.println();
+        System.out.println("Cumulative density:");
+        for (float x=-1; x<=1; x+=0.5) {
+            System.out.println("  " + x + ": " + h.getAccumCount(x));
+        }
+        System.out.println();
     }
 }
