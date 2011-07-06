@@ -28,9 +28,9 @@ Then, for every service response, we log the time:
 
 On fixed intervals (maybe a few minutes, maybe a few hours), recreate the histogram object, and print the information of the old one:
 
-<code>hOld = h;
+<pre><code>hOld = h;
 h = new Histogram()
-//print somewhere h.getValueForPercentile(95)</code>
+//print somewhere h.getValueForPercentile(95)</code></pre>
 
 
 Example
