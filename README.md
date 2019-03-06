@@ -28,7 +28,7 @@ Apache 2.0
 Usage
 =====
 
-A typical use case is mesuring response times of a service. In this case, we can create a histogram object:
+A typical use case is measuring response times of a service. In this case, we can create a histogram object:
 
 <code>AdaptiveHistogram h = new Histogram();
 
